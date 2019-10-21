@@ -7,15 +7,15 @@
 
 (insert-at 5 2 (list 6 4 3))
 
-(defun my-remove (element list)
-  (if (endp list) list
-      (if (eql element (first list))
-          (my-remove element (rest list))
-          (list* (first list)
-                 (my-remove element (rest list))))))
-
 ;; task 1.2
-(remove 4 (list 6 4 3))
+(defun remove-at (listq pos)
+	(if (eql pos 1)
+		(cdr listq)
+		(cons (car listq) (remove-at (cdr listq) (1- pos)))
+	)
+)
+
+(remove-at (list 6 4 3) 2)
 
 ;; task 1.3
 (defun pos (element list)
