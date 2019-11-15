@@ -29,25 +29,10 @@
 (encode (list 1 1 1 3 111 111 111 55 55 6 7 2 2 2))
 
 ;;task 3.2
-(defun decode (lista)
-	(if (eql lista nil)
-		nil
-		(append (decode-first (car lista)) (decode (cdr lista)))
-	)
-)
+(defun decompress(lst)
+  (loop for element in lst
+    if (integerp element) collect element
+    if (listp element) nconc (make-list (car element) 
+	:initial-element (cadr element))))
 
-(defun decode-first (item)
-	(if (listp item)
-		(listloop (car item) (second item))
-		(list item)
-	)
-)
-
-(defun listloop (times item)
-	(if (zerop item)
-		nil
-		(cons item (repeat (1- times) item))
-	)
-)
-
-(decode (list (list 3 1) 3 (list 3 111) (list 2 55) 6 7 (list 3 2)))
+(decompress (list (list 3 1) 3 (list 3 111) (list 2 55) 6 7 (list 3 2)))
